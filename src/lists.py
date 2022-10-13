@@ -71,6 +71,16 @@ def contains(x: List[T], e: T) -> bool:
     >>> contains(L(1, L(2, L(3, None))), 2)
     True
     """
+    if x.tail==None:
+        return False
+    return True if e==x.head else contains (x.tail,e)
+
+    #første gang kører vi med hele listen hvor head jo så er 1, næste gang vi kører koden kører vi den på x.tail, e altså den starter på 2 fordi det er 
+    #der tail starter. 2 bliver derfor den nye head som vi tjekker, og sådan kører den indtil head enten er e eller None. 
+
+    #best case må være at e==x.head, så den er O(1) #worst case er at den slet ikke er i listen, så den må være O(n). 
+
+
     ...
 
 
@@ -86,6 +96,10 @@ def drop(x: List[T], k: int) -> List[T]:
     >>> drop(x, 3)
     L(4, None)
     """
+
+    return x if k==0 else drop(x.tail, k-1)
+
+    #best case må være hvis k==0, altså O(1). worst case må være k=length(x) også må det være O(n) fordi så skal vi alle n igennem. 
     ...
 
 
@@ -100,6 +114,9 @@ def keep(x: List[T], k: int) -> List[T]:
     >>> keep(x, 3)
     L(1, L(2, L(3, None)))
     """
+    return None if k==0 else L(x.head, keep(x.tail, k-1))
+
+    #best case k==0, der må O(1) også worst case er k er ligeså lang som listen: O(n)
     ...
 
 
@@ -110,6 +127,11 @@ def concat(x: List[T], y: List[T]) -> List[T]:
     >>> concat(L(1, L(2, None)), L(3, L(4, None)))
     L(1, L(2, L(3, L(4, None))))
     """
+    return None if length(x)==0 and length(y)==0 else L(x.head, concat(x.tail), y.head, concat(y.tail))
+    #retrun None if length(x)==0 and length(y)=0 else L(x.head, concat(x.tail,y)) if x>0 else L(y.head, concact(0,y.tail))
+
+    #best case er at len(x) og len(y) ==0, altså O(0). Worst case må være at den skal køre hele længden af x og hele af y. Derfor kan man kalde det O(n*m)
+
     ...
 
 
@@ -120,6 +142,8 @@ def append(x: List[T], e: T) -> List[T]:
     >>> append(L(1, L(2, None)), 3)
     L(1, L(2, L(3, None)))
     """
+
+    return L(x,e)
     ...
 
 
